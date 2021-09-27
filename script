@@ -1,0 +1,97 @@
+<script>	
+	
+	jQuery( document ).on( "found_variation", function (e, v) {
+	//alert( v.display_price );
+	//console.log( v );
+	//console.log(v.image_id);
+		//console.log(inputJamon);
+    reset();
+		cogeValor();
+
+} );
+  
+  function reset(){
+        var inputs = document.getElementsByName('quantity');
+    	inputs[0].value="1";
+  }
+	
+function actualizarMas() {
+  cogeValor();
+console.log("Mas");
+}
+	
+function actualizarMenos() {
+  cogeValor();
+console.log("Menos");
+}
+
+	
+function cogeValor(){
+		var valInput = [];
+	var valPrecio = [];
+
+var inputs = document.getElementsByName('quantity');
+var precios = document.getElementsByTagName('bdi');
+  
+  
+var value1 = precios[0].innerHTML.replace(/,/, '.');
+		var precioComa = parseFloat(value1.substring(0, 5));
+    
+  var precioTotal = precioComa * inputs[0].value;
+    precios[0].innerHTML = precioTotal.toString() + "<span class='woocommerce-Price-currencySymbol'>€</span>";
+
+
+
+	for(var key = 0; key<1; key++){
+//for(var key in inputs) {
+    var value = inputs[key].value;
+    valInput.push(parseInt(value));
+    }
+	
+	for (var key1 = 0; key1<1; key1++){
+	//for(var key1 in precios) {
+    var value1 = precios[key1].innerHTML.replace(/,/, '.');
+		var trimmedString = parseFloat(value1.substring(0, 5));
+    valPrecio.push(trimmedString);
+    }
+
+
+console.log(valInput);
+console.log(valPrecio);
+	}
+	
+	
+// Function to add event listener to t
+function load() {
+  var mas = document.querySelectorAll("button.plus.qib-button");
+	var menos = document.querySelectorAll("button.minus.qib-button");
+	cogeValor();
+	
+	mas.forEach(btn => {
+   	btn.addEventListener('click', event => {
+	
+	   actualizarMas();
+		setTimeout(() => {
+ cogeValor();
+}, 100);
+			
+		
+   		});
+
+	});
+	menos.forEach(btn => {
+   	btn.addEventListener('click', event => {
+	   actualizarMenos();
+		
+		setTimeout(() => {
+ 			cogeValor();
+			}, 100);
+   		});
+
+	});
+  //el.addEventListener("click", actualizar, false);
+}
+			   
+
+document.addEventListener("DOMContentLoaded", load, false);
+</script>
